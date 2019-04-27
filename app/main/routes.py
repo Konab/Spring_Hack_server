@@ -9,3 +9,8 @@ from app.models import Tickets
 @bp.route('/index', methods=['GET'])
 def index():
 	return 'Hello world!'
+
+
+@bp.route('/test', methods=['GET'])
+def test():
+	return jsonify({'Connection': 'DONE'})
