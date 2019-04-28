@@ -69,7 +69,7 @@ def get_near():
 		'name': curr_comp.find('name'),
 		'address': curr_comp.find('address'),
 		'info-page': curr_comp.find('info-page'),
-		'working-time': curr_comp.find('working-time')
+		'working-time': curr_comp.find('working-time'),
 		'lat': ans_curr_comp['lat'],
 		'lat': ans_curr_comp['lon'],
 	}
