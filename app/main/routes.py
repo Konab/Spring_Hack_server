@@ -31,10 +31,7 @@ def get_nearest_api(coor):
 		)
 
 		data_nearest = requests.get(url=url, params=params).json()
-		try:
-			nearest_list = data_nearest['response']['groups'][0]['items']
-		except KeyError:
-			return []
+		nearest_list = data_nearest['response']['groups'][0]['items']
 
 		props_nearist_list = []
 		for i in range(len(nearest_list)):
