@@ -96,9 +96,6 @@ def find_near(coord):
 	lon = float()
 	for company in find_in_xml({'locality-name': 'город Москва'}):
 		dist = math.hypot(float(company.coordinates.lat.text) - float(coord[0]), float(company.coordinates.lon.text) - float(coord[1]))
-		print(company.address.text.replace('\n', '').replace('\t', ''))
-		print(dist)
-		print('*****'*3)
 		if min_dist > dist:
 			min_dist = dist
 			lat = company.coordinates.lat.text
@@ -135,7 +132,7 @@ def get_help():
 @bp.route('/get_near', methods=['GET'])
 def get_near():
 	args = request.args.to_dict()
-	['company-id', 'name', 'address', 'country' 'locality-name', 'street', 'house', 'phone', 'info-page', 'working-time', 'coordinates']
+	# ['company-id', 'name', 'address', 'country' 'locality-name', 'street', 'house', 'phone', 'info-page', 'working-time', 'coordinates']
 
 	ans_curr_comp = find_near([args['lon'], args['lat']])
 	curr_comp = ans_curr_comp['company']
@@ -149,7 +146,7 @@ def get_near():
 		'lon': float(ans_curr_comp['lon']),
 	}
 
-	coor_from = {'lat': float(args['lat']), 'lng': float(args['lon'])}
+	coor_from = {'lat': float(args['lon']), 'lng': float(args['lat'])}
 	coor_to = {'lat':float(dict_curr_comp['lat']), 'lng':float(dict_curr_comp['lon'])}
 	rout_coor_list, len_time_list = get_route_api(coor_from=coor_from, coor_to=coor_to)
 	Thread(target=walking_to_coor, args=([rout_coor_list])).start()
