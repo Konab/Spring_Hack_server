@@ -108,8 +108,12 @@ def find_near(coord):
 
 def walking_to_coor(rout_coor_list):
 	for coor in rout_coor_list:
-		# print('::> ', get_nearest_api(coor))
-		print('Get near company - Good')
+		return_data = []
+		ans = get_nearest_api(coor)
+		return_data.append(ans)
+		print('::> ', ans)
+		# print('Get near company - Good')
+	print(return_data)
 	# Потом отправляет 
 
 
