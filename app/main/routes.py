@@ -60,7 +60,6 @@ def get_route_api(coor_from, coor_to):
 		temp_queue = api_queue.format(coor_from['lat'], coor_from['lng'], coor_to['lat'], coor_to['lng'], APP_ID, APP_CODE)
 		data = requests.get(temp_queue).json()
 		str_temp = data['response']['route'][0]['summary']['text']
-		print('•• ',str_temp)
 
 		# [km, min]
 		len_time_list = str_temp.replace('The trip takes <span class="length">', '').replace('km</span> and <span class="time">', '').replace(' mins</span>.', '').split(' ')
@@ -70,7 +69,7 @@ def get_route_api(coor_from, coor_to):
 		rout_coor_list = []
 		for i in range (len(temp_list)):
 			rout_coor_list.append(temp_list[i]['position'])
-		print('>> ', len_time_list)
+
 		return (rout_coor_list, len_time_list)
 
 	# Вызов функции 
@@ -151,7 +150,6 @@ def get_near():
 	coor_to = {'lat':float(dict_curr_comp['lat']), 'lng':float(dict_curr_comp['lon'])}
 	rout_coor_list, len_time_list = get_route_api(coor_from=coor_from, coor_to=coor_to)
 	Thread(target=walking_to_coor, args=([rout_coor_list])).start()
-	print('good')
-	print(':::> ', len_time_list)
+	dict_curr_comp['time': int(len_time_list[1])]
 
 	return jsonify(dict_curr_comp)
