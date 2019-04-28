@@ -37,7 +37,7 @@ def get_route_api(coor_from, coor_to):
 		return (rout_coor_list, len_time_list)
 
 	# Вызов функции 
-	find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE)
+	return find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE)
 
 
 def find_in_xml(*kwargs):
