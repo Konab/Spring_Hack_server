@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 import json
 import math
+from dataclasses import dataclass
 
 
 def find_in_xml(*kwargs):
@@ -20,7 +21,6 @@ def find_in_xml(*kwargs):
 		for key in param:
 			if param[key] in companies[i].find(key).text:
 				return_data.append(companies[i])
-	print(len(return_data))
 	return return_data
 
 
@@ -31,8 +31,6 @@ def find_near(coord):
 	lon = float()
 	for company in find_in_xml({'locality-name': 'город Москва'}):
 		dist = math.hypot(float(company.coordinates.lat.text) - float(coord[0]), float(company.coordinates.lon.text) - float(coord[1]))
-		print(dist)
-		print('-> ', dist)
 		if min_dist > dist:
 			min_dist = dist
 			lat = company.coordinates.lat.text
@@ -62,6 +60,18 @@ def get_help():
 @bp.route('/get_near', methods=['GET'])
 def get_near():
 	args = request.args.to_dict()
-	print(args)
-	print(find_near([args['lat'], args['lon']]))
-	return jsonify(None)
+	['company-id', 'name', 'address', 'country' 'locality-name', 'street', 'house', 'phone', 'info-page', 'working-time', 'coordinates']
+
+	ans_curr_comp = find_near([args['lat'], args['lon']])
+	curr_comp = ans_curr_comp['company']
+	dict_curr_comp = {
+		'company-id': curr_comp.find('company-id'),
+		'name': curr_comp.find('name'),
+		'address': curr_comp.find('address'),
+		'info-page': curr_comp.find('info-page'),
+		'working-time': curr_comp.find('working-time')
+		'lat': ans_curr_comp['lat'],
+		'lat': ans_curr_comp['lon'],
+	}
+
+	return jsonify(dict_curr_comp)
