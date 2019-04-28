@@ -42,7 +42,7 @@ def get_nearest_api(coor):
 			props_nearist_list.append(temp_dic)
 
 		return props_nearist_list
-	return get_nearest(coor)
+	return get_nearest(coor, url)
 
 
 def get_route_api(coor_from, coor_to):
