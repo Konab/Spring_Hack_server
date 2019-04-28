@@ -27,7 +27,7 @@ def get_nearest_api(coor):
 			client_secret=CLIENT_SECRET,
 			v='20180323', # версия данных для запроса, технический параметр 
 			ll='{},{}'.format(coor['latitude'], coor['longitude']),
-			radius = 300 
+			radius = 1000 
 		)
 
 		data_nearest = requests.get(url=url, params=params).json()
