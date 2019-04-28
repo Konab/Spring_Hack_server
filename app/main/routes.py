@@ -95,7 +95,7 @@ def find_near(coord):
 	lat = float()
 	lon = float()
 	for company in find_in_xml({'locality-name': 'город Москва'}):
-		dist = math.hypot(float(company.coordinates.lat.text) - float(coord[0]), float(company.coordinates.lon.text) - float(coord[1]))
+		dist = math.hypot(float(company.coordinates.lat.text) + float(coord[0]), float(company.coordinates.lon.text) + float(coord[1]))
 		print(company.address.text.replace('\n', '').replace('\t', ''))
 		print(dist)
 		print('*****'*3)
