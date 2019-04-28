@@ -34,8 +34,9 @@ def find_near(coord):
 			min_dist = dist
 			lat = companies.coordinates.lat.text
 			lon = companies.coordinates.lon.text
+			curr_comp = company
 
-	return {'company': company, 'lat': lat, 'lon': lon}
+	return {'company': curr_comp, 'lat': lat, 'lon': lon}
 
 
 
