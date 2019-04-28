@@ -139,7 +139,7 @@ def get_near():
 	args = request.args.to_dict()
 	['company-id', 'name', 'address', 'country' 'locality-name', 'street', 'house', 'phone', 'info-page', 'working-time', 'coordinates']
 
-	ans_curr_comp = find_near([args['lat'], args['lon']])
+	ans_curr_comp = find_near([args['lon'], args['lat']])
 	curr_comp = ans_curr_comp['company']
 	dict_curr_comp = {
 		'company-id': str(curr_comp.find('company-id').text),
