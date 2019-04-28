@@ -50,9 +50,7 @@ def get_route_api(coor_from, coor_to):
 	APP_ID = 'wPO9uLZlQtPAe3WJ4KgD'
 	APP_CODE = 'MVBTSJpnlc83Yb1sCzzXIg'
 
-	api_queue = 'https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0={0}%2C{1}&waypoint1={2}%2C{3}&mode=pedestrian&app_id={4}&app_code={5}'
-				# 'https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0={0}%2C{1}&waypoint1={2}%2C{3}&mode=pedestrian&app_id={4}&app_code={5}'
-	print(api_queue)
+	api_queue = 'https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0={0}%2C{1}&waypoint1={2}%2C{3}&mode=fastest%3pedestrian&app_id={4}&app_code={5}'
 
 	# coor_from = {'lat': 55.762141, 'lng': 37.633742}
 	# coor_to = {'lat': 55.749407, 'lng': 37.623742}
@@ -60,7 +58,6 @@ def get_route_api(coor_from, coor_to):
 	def find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE):
 		temp_queue = api_queue.format(coor_from['lat'], coor_from['lng'], coor_to['lat'], coor_to['lng'], APP_ID, APP_CODE)
 		data = requests.get(temp_queue).json()
-		print(data)
 		str_temp = data['response']['route'][0]['summary']['text']
 		print('•• ',str_temp)
 
