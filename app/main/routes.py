@@ -65,11 +65,11 @@ def get_near():
 	ans_curr_comp = find_near([args['lat'], args['lon']])
 	curr_comp = ans_curr_comp['company']
 	dict_curr_comp = {
-		'company-id': curr_comp.company-id.text,
-		'name': curr_comp.name.text,
-		'address': curr_comp.address.text,
-		'info-page': curr_comp.info-page.text,
-		'working-time': curr_comp.working-time.text,
+		'company-id': curr_comp.find('company-id').text,
+		'name': curr_comp.find('name').text,
+		'address': curr_comp.find('address').text,
+		'info-page': curr_comp.find('info-page').text,
+		'working-time': curr_comp.find('working-time').text,
 		'lat': ans_curr_comp['lat'],
 		'lat': ans_curr_comp['lon'],
 	}
