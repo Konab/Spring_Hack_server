@@ -150,6 +150,6 @@ def get_near():
 	coor_to = {'lat':float(dict_curr_comp['lat']), 'lng':float(dict_curr_comp['lon'])}
 	rout_coor_list, len_time_list = get_route_api(coor_from=coor_from, coor_to=coor_to)
 	Thread(target=walking_to_coor, args=([rout_coor_list])).start()
-	dict_curr_comp['time': int(len_time_list[1])]
+	dict_curr_comp['time': len_time_list[1]]
 
 	return jsonify(dict_curr_comp)
