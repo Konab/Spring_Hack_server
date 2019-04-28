@@ -25,7 +25,7 @@ def get_nearest_api(coor):
 			client_id=CLIENT_ID,
 			client_secret=CLIENT_SECRET,
 			v='20180323', # версия данных для запроса, технический параметр 
-			ll='{0},{1}'.format(coor['lat'], coor['lng']),
+			ll='{},{}'.format(coor['lat'], coor['lng']),
 			radius = 50 
 		)
 
