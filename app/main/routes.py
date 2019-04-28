@@ -11,6 +11,32 @@ import math
 from dataclasses import dataclass
 
 
+def get_route_api(coor_from, coor_to):
+	APP_ID = 'wPO9uLZlQtPAe3WJ4KgD'
+	APP_CODE = 'MVBTSJpnlc83Yb1sCzzXIg'
+
+	api_queue = 'https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0={0}%2C{1}&waypoint1={2}%2C{3}&mode=fastest%3Bpedestrian&language=ru-ru&app_id={4}&app_code={5}'
+
+
+	# coor_from = {'lat': 55.762141, 'lng': 37.633742}
+	# coor_to = {'lat': 55.749407, 'lng': 37.623742}
+
+
+	def find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE):
+	    temp_queue = api_queue.format(coor_from['lat'], coor_from['lng'], coor_to['lat'], coor_to['lng'], APP_ID, APP_CODE)
+	    return requests.get(temp_queue).json()
+
+	# Вызов функции 
+	return find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE)
+
+	# Возвращает json  в поле 'text' храниться информация о пути и времени 
+	# 'text': 'The trip takes <span class="length">1.8 km</span> and <span class="time">31 mins</span>.'
+	#
+	# Доступ :
+	#        str_temp = data['response']['route'][0]['summary']['text']
+	#
+
+
 def find_in_xml(*kwargs):
 	with open('data.xml', 'r') as f:
 		soup = BeautifulSoup(f, features="lxml")
@@ -70,9 +96,13 @@ def get_near():
 		'address': curr_comp.find('address').text,
 		'info-page': curr_comp.find('info-page').text,
 		'working-time': curr_comp.find('working-time').text,
-		'lat': ans_curr_comp['lat'],
-		'lat': ans_curr_comp['lon'],
+		'lat': float(ans_curr_comp['lat']),
+		'lon': float(ans_curr_comp['lon']),
 	}
-	print(dict_curr_comp)
+
+	coor_from = {'lat': float(args['lat']), 'lng': float(args['lon'])}
+	coor_to = {'lat':float(dict_curr_comp['lat']), 'lng':float(dict_curr_comp['lon'])}
+	route = get_route_api(coor_from=coor_from, coor_to=coor_to)
+	print(route)
 
 	return jsonify(dict_curr_comp)
