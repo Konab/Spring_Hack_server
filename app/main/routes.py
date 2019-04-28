@@ -73,5 +73,6 @@ def get_near():
 		'lat': ans_curr_comp['lat'],
 		'lat': ans_curr_comp['lon'],
 	}
+	print(dict_curr_comp)
 
 	return jsonify(dict_curr_comp)
