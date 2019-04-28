@@ -25,7 +25,7 @@ def find_in_xml(*kwargs):
 
 def find_near(coord):
 	min_dist = 10000
-	lat = flat()
+	lat = float()
 	lon = float()
 	for company in find_in_xml({'locality-name': 'город Москва'}):
 		dist = math.hypot(companies.coordinates.lat.text - coord[0], companies.coordinates.lon.text - coord[1])
