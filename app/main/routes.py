@@ -16,11 +16,11 @@ def find_in_xml(*kwargs):
 	companies = soup.findAll('company')
 	return_data = []
 	param = kwargs[0]
-	print(param)
 	for i in range(len(companies)):
 		for key in param:
 			if companies[i].find(key).text == param[key]:
 				return_data.append(companies[i])
+	print(len(return_data))
 	return return_data
 
 
