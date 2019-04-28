@@ -12,7 +12,6 @@ from dataclasses import dataclass
 
 
 def get_nearest_api(coor):
-	print(coor)
 	CLIENT_ID = '5SOB0CFR2GLLAJWEJL2W4QQRRUV0LZHZIU4NC4QQZM3LIM1Z'
 	CLIENT_SECRET = 'RWMRY2PWNPV5ORV3M52QX5VMCJADJALTC4F5CRMT45SBKX2A'
 
@@ -30,7 +29,7 @@ def get_nearest_api(coor):
 			radius = 50 
 		)
 
-		data = requests.get(url=url, params=params).json()
+		data_nearest = requests.get(url=url, params=params).json()
 		nearest_list = data_nearest['response']['groups'][0]['items']
 
 		props_nearist_list = []
