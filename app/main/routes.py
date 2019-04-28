@@ -19,3 +19,10 @@ def test():
 @bp.route('/get_help', methods=['GET'])
 def get_help():
 	return jsonify({'con': 'done'})
+
+
+@bp.route('/get_near', methods=['GET'])
+def get_near():
+	args = request.args.to_dict()
+	print(args)
+	return jsonify(None)
