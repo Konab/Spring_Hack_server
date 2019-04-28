@@ -17,24 +17,27 @@ def get_route_api(coor_from, coor_to):
 
 	api_queue = 'https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0={0}%2C{1}&waypoint1={2}%2C{3}&mode=fastest%3Bpedestrian&language=ru-ru&app_id={4}&app_code={5}'
 
-
 	# coor_from = {'lat': 55.762141, 'lng': 37.633742}
 	# coor_to = {'lat': 55.749407, 'lng': 37.623742}
 
-
 	def find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE):
-	    temp_queue = api_queue.format(coor_from['lat'], coor_from['lng'], coor_to['lat'], coor_to['lng'], APP_ID, APP_CODE)
-	    return requests.get(temp_queue).json()
+		temp_queue = api_queue.format(coor_from['lat'], coor_from['lng'], coor_to['lat'], coor_to['lng'], APP_ID, APP_CODE)
+		data = requests.get(temp_queue).json()
+		str_temp = data['response']['route'][0]['summary']['text']
+
+		# [km, min]
+		len_time_list = str_temp.replace('The trip takes <span class="length">', '').replace('km</span> and <span class="time">', '').replace(' mins</span>.', '').split(' ')
+		# [coor of rout]
+		temp_list =  data['response']['route'][0]['leg'][0]['maneuver'] 
+
+		rout_coor_list = []
+		for i in range (len(temp_list)):
+			rout_coor_list.append(temp_list[i]['position'])
+		
+		return rout_coor_list, len_time_list
 
 	# Вызов функции 
-	return find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE)
-
-	# Возвращает json  в поле 'text' храниться информация о пути и времени 
-	# 'text': 'The trip takes <span class="length">1.8 km</span> and <span class="time">31 mins</span>.'
-	#
-	# Доступ :
-	#        str_temp = data['response']['route'][0]['summary']['text']
-	#
+	find_route_HERE_API(coor_from, coor_to, api_queue, APP_ID, APP_CODE)
 
 
 def find_in_xml(*kwargs):
@@ -102,7 +105,7 @@ def get_near():
 
 	coor_from = {'lat': float(args['lat']), 'lng': float(args['lon'])}
 	coor_to = {'lat':float(dict_curr_comp['lat']), 'lng':float(dict_curr_comp['lon'])}
-	route = get_route_api(coor_from=coor_from, coor_to=coor_to)
-	print(route)
+	rout_coor_list, len_time_list = get_route_api(coor_from=coor_from, coor_to=coor_to)
+	print(rout_coor_list, len_time_list)
 
 	return jsonify(dict_curr_comp)
