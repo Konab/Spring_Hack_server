@@ -50,7 +50,8 @@ def get_route_api(coor_from, coor_to):
 	APP_ID = 'wPO9uLZlQtPAe3WJ4KgD'
 	APP_CODE = 'MVBTSJpnlc83Yb1sCzzXIg'
 
-	api_queue = 'https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0={0}%2C{1}&waypoint1={2}%2C{3}&mode=fastest%3pedestrian&app_id={4}&app_code={5}'
+	api_queue = 'https://route.api.here.com/routing/7.2/calculateroute.json?waypoint0={0}%2C{1}&waypoint1={2}%2C{3}&mode=fastest%3Bpedestrian&app_id={4}&app_code={5}'
+
 
 	# coor_from = {'lat': 55.762141, 'lng': 37.633742}
 	# coor_to = {'lat': 55.749407, 'lng': 37.623742}
