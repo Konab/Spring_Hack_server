@@ -59,6 +59,7 @@ def get_route_api(coor_from, coor_to):
 		temp_queue = api_queue.format(coor_from['lat'], coor_from['lng'], coor_to['lat'], coor_to['lng'], APP_ID, APP_CODE)
 		data = requests.get(temp_queue).json()
 		str_temp = data['response']['route'][0]['summary']['text']
+		print('•• ',str_temp)
 
 		# [km, min]
 		len_time_list = str_temp.replace('The trip takes <span class="length">', '').replace('km</span> and <span class="time">', '').replace(' mins</span>.', '').split(' ')
