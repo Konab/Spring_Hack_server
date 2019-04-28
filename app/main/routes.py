@@ -11,6 +11,39 @@ import math
 from dataclasses import dataclass
 
 
+def get_nearest_api(coor):
+	CLIENT_ID = '5SOB0CFR2GLLAJWEJL2W4QQRRUV0LZHZIU4NC4QQZM3LIM1Z'
+	CLIENT_SECRET = 'RWMRY2PWNPV5ORV3M52QX5VMCJADJALTC4F5CRMT45SBKX2A'
+
+	url = 'https://api.foursquare.com/v2/venues/explore'
+
+	# coor = {'lat': 55.815361, 'lng': 37.512489}
+
+	def get_nearest(coor, url):
+		
+		params = dict(
+			client_id=CLIENT_ID,
+			client_secret=CLIENT_SECRET,
+			v='20180323', # версия данных для запроса, технический параметр 
+			ll='{0},{1}'.format(coor['lat'], coor['lng']),
+			radius = 50 
+		)
+
+		data = requests.get(url=url, params=params).json()
+		nearest_list = data_nearest['response']['groups'][0]['items']
+
+		props_nearist_list = []
+		for i in range(len(nearest_list)):
+			temp_dic = {
+				'name': data_nearest['response']['groups'][0]['items'][i]['venue']['name'],
+				'categories': data_nearest['response']['groups'][0]['items'][i]['venue']['categories'][0]['name'],
+				'distance': data_nearest['response']['groups'][0]['items'][i]['venue']['location']['distance']
+			}
+			props_nearist_list.append(temp_dic)
+
+		return props_nearist_list
+
+
 def get_route_api(coor_from, coor_to):
 	APP_ID = 'wPO9uLZlQtPAe3WJ4KgD'
 	APP_CODE = 'MVBTSJpnlc83Yb1sCzzXIg'
@@ -28,7 +61,7 @@ def get_route_api(coor_from, coor_to):
 		# [km, min]
 		len_time_list = str_temp.replace('The trip takes <span class="length">', '').replace('km</span> and <span class="time">', '').replace(' mins</span>.', '').split(' ')
 		# [coor of rout]
-		temp_list =  data['response']['route'][0]['leg'][0]['maneuver'] 
+		temp_list =	data['response']['route'][0]['leg'][0]['maneuver'] 
 
 		rout_coor_list = []
 		for i in range (len(temp_list)):
@@ -106,6 +139,7 @@ def get_near():
 	coor_from = {'lat': float(args['lat']), 'lng': float(args['lon'])}
 	coor_to = {'lat':float(dict_curr_comp['lat']), 'lng':float(dict_curr_comp['lon'])}
 	rout_coor_list, len_time_list = get_route_api(coor_from=coor_from, coor_to=coor_to)
-	print(rout_coor_list, len_time_list)
+	for coor in rout_coor_list[0]:
+		print('::> ', get_nearest_api(coor))
 
 	return jsonify(dict_curr_comp)
