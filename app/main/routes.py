@@ -39,8 +39,7 @@ def get_nearest_api(coor):
 			print(data_nearest)
 			temp_dic = {
 				'name': data_nearest['response']['groups'][0]['items'][i]['venue']['name'],
-				'categories': data_nearest['response']['groups'][0]['items'][i]['venue']['categories'][0]['name'],
-				# 'info': 
+				'categories': data_nearest['response']['groups'][0]['items'][i]['venue']['categories'][0]['name']
 				# 'distance': data_nearest['response']['groups'][0]['items'][i]['venue']['location']['distance']
 			}
 			props_nearist_list.append(temp_dic)
@@ -111,9 +110,9 @@ def find_near(coord):
 
 def walking_to_coor(rout_coor_list):
 	for coor in rout_coor_list:
-		return_data = []
+		return_data = set()
 		ans = get_nearest_api(coor)
-		return_data.append(ans)
+		return_data.add(ans)
 		print('::> ', ans)
 		# print('Get near company - Good')
 	print(return_data)
