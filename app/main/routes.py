@@ -68,7 +68,7 @@ def get_route_api(coor_from, coor_to):
 		rout_coor_list = []
 		for i in range (len(temp_list)):
 			rout_coor_list.append(temp_list[i]['position'])
-		
+		print('>> ', len_time_list)
 		return (rout_coor_list, len_time_list)
 
 	# Вызов функции 
