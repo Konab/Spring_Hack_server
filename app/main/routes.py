@@ -13,7 +13,7 @@ import math
 def find_in_xml(*kwargs):
 	with open('data.xml', 'r') as f:
 		soup = BeautifulSoup(f)
-	companies.findAll('company')
+	soup.findAll('company')
 	return_data = []
 	param = kwargs[0]
 	for i in range(len(companies)):
