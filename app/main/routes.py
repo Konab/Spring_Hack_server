@@ -42,6 +42,7 @@ def get_nearest_api(coor):
 			props_nearist_list.append(temp_dic)
 
 		return props_nearist_list
+	return get_nearest(coor)
 
 
 def get_route_api(coor_from, coor_to):
@@ -127,11 +128,11 @@ def get_near():
 	ans_curr_comp = find_near([args['lat'], args['lon']])
 	curr_comp = ans_curr_comp['company']
 	dict_curr_comp = {
-		'company-id': curr_comp.find('company-id').text,
-		'name': curr_comp.find('name').text,
-		'address': curr_comp.find('address').text,
-		'info-page': curr_comp.find('info-page').text,
-		'working-time': curr_comp.find('working-time').text,
+		'company-id': str(curr_comp.find('company-id').text),
+		'name': str(curr_comp.find('name').text),
+		'address': str(curr_comp.find('address').text),
+		'info-page': str(curr_comp.find('info-page').text),
+		'working-time': str(curr_comp.find('working-time').text),
 		'lat': float(ans_curr_comp['lat']),
 		'lon': float(ans_curr_comp['lon']),
 	}
