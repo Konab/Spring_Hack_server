@@ -31,7 +31,10 @@ def get_nearest_api(coor):
 		)
 
 		data_nearest = requests.get(url=url, params=params).json()
-		nearest_list = data_nearest['response']['groups'][0]['items']
+		try:
+			nearest_list = data_nearest['response']['groups'][0]['items']
+		except KeyError:
+			return []
 
 		props_nearist_list = []
 		for i in range(len(nearest_list)):
@@ -149,5 +152,6 @@ def get_near():
 	rout_coor_list, len_time_list = get_route_api(coor_from=coor_from, coor_to=coor_to)
 	Thread(target=walking_to_coor, args=([rout_coor_list])).start()
 	print('good')
+	print(':::> ', len_time_list)
 
 	return jsonify(dict_curr_comp)
