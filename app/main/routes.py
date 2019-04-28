@@ -18,10 +18,9 @@ def find_in_xml(*kwargs):
 	param = kwargs[0]
 	for i in range(len(companies)):
 		for key in param:
-			print(key)
-			print(companies[i].find(key))
 			if companies[i].find(key).text == param[key]:
 				return_data.append(companies[i])
+	print(len(return_data))
 	return return_data
 
 
