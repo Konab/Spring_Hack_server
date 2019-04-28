@@ -12,41 +12,6 @@ from dataclasses import dataclass
 from threading import Thread
 
 
-def detected_intent_text(session_id, texts, language_code):
-	'''Detected Intent Text
-	Определяет контекст по тексту
-	
-	Arguments:
-		session_id {str} -- ID сессии
-		texts {list} -- список текстов для анализа
-		language_code {str} -- код языка текстов
-	
-	Returns:
-		{list:dict} -- список словарей с ответом
-	'''
-	session_client = dialogflow.SessionsClient()
-	project_id = 'project-7132272819928932891'
-
-	session = session_client.session_path(project_id, session_id)
-	print('Session path: {}\n'.format(session))
-
-	return_data = []
-	for text in texts:
-
-		text_input = dialogflow.types.TextInput(
-			text=text, language_code=language_code)
-
-		query_input = dialogflow.types.QueryInput(text=text_input)
-
-		response = session_client.detect_intent(
-			session=session, query_input=query_input)
-		return_data.append(response)
-
-	print('--> DONE')
-
-	return {'Total': len(return_data), 'results': return_data}
-
-
 def get_nearest_api(coor):
 	CLIENT_ID = 'O42WPIY0IINNJIBWBER2AL10AG4ZZEEOBUMPOTVHSNZXMCPE'
 	CLIENT_SECRET = 'YWUX1EOEFWZPA2WT2204FMB1PTTEZ133OKCGKNNWZHGJUYW2'
@@ -194,9 +159,3 @@ def get_near():
 	dict_curr_comp['time'] = len_time_list[1]
 
 	return jsonify(dict_curr_comp)
-
-
-@bp.route('/detected_text', methods=['GET', 'POST'])
-def detected_text():
-	args = request.args.to_dict()	
-	print(detected_intent_text(1, 'Хочу оплатить жкх')t)
