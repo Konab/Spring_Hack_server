@@ -14,6 +14,7 @@ def find_in_xml(*kwargs):
 	with open('data.xml', 'r') as f:
 		soup = BeautifulSoup(f, features="lxml")
 	companies = soup.findAll('company')
+	print(len(companies))
 	return_data = []
 	param = kwargs[0]
 	for i in range(len(companies)):
