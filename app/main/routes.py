@@ -14,3 +14,8 @@ def index():
 @bp.route('/test', methods=['GET'])
 def test():
 	return jsonify({'Connection': 'DONE'})
+
+
+@bp.route('/get_help', methods=['GET'])
+def get_help():
+	return jsonify({'con': 'done'})
