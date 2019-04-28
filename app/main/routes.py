@@ -9,6 +9,7 @@ import requests
 import json
 import math
 from dataclasses import dataclass
+from threading import Thread
 
 
 def get_nearest_api(coor):
@@ -104,6 +105,11 @@ def find_near(coord):
 
 
 
+def walking_to_coor(rout_coor_list):
+	for coor in rout_coor_list:
+		print('::> ', get_nearest_api(coor))
+
+
 @bp.route('/')
 @bp.route('/index', methods=['GET'])
 def index():
@@ -140,7 +146,6 @@ def get_near():
 	coor_from = {'lat': float(args['lat']), 'lng': float(args['lon'])}
 	coor_to = {'lat':float(dict_curr_comp['lat']), 'lng':float(dict_curr_comp['lon'])}
 	rout_coor_list, len_time_list = get_route_api(coor_from=coor_from, coor_to=coor_to)
-	for coor in rout_coor_list:
-		print('::> ', get_nearest_api(coor))
+	Thread(target=walking_to_coor, args=(rout_coor_list)).start()
 
 	return jsonify(dict_curr_comp)
