@@ -36,10 +36,12 @@ def get_nearest_api(coor):
 
 		props_nearist_list = []
 		for i in range(len(nearest_list)):
+			print(data_nearest)
 			temp_dic = {
 				'name': data_nearest['response']['groups'][0]['items'][i]['venue']['name'],
 				'categories': data_nearest['response']['groups'][0]['items'][i]['venue']['categories'][0]['name'],
-				'distance': data_nearest['response']['groups'][0]['items'][i]['venue']['location']['distance']
+				# 'info': 
+				# 'distance': data_nearest['response']['groups'][0]['items'][i]['venue']['location']['distance']
 			}
 			props_nearist_list.append(temp_dic)
 
